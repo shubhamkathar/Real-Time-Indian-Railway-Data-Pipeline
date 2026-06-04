@@ -82,7 +82,7 @@ Apache Airflow
 
 ## 🔄 Pipeline Workflow
 
-1. **Raw Data** — 3 JSON files uploaded to Mayur's S3 bucket
+1. **Raw Data** — 3 JSON files uploaded to S3 bucket
 2. **Producer** — reads files from S3, sends to 3 Kafka topics in batches of 100
 3. **Kafka** — buffers messages across 3 topics
 4. **Consumer** — reads all 3 topics, joins using Pandas, cleans with PySpark
