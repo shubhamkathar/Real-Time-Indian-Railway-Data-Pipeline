@@ -42,7 +42,7 @@ This project demonstrates a complete cloud-based data engineering workflow for p
 * Implement a scalable cloud-based architecture.
 
 ---
-
+![Architecture](architecture.png)
 ## 🏗️ Architecture
 
 ```text
