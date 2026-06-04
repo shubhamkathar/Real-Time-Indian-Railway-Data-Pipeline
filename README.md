@@ -79,6 +79,7 @@ Apache Airflow
 ```
 
 ---
+![Architecture](architecture1.png)
 
 ## 🔄 Pipeline Workflow
 
@@ -208,7 +209,7 @@ railway-pipeline/
 
 ---
 ---
-![Architecture](architecture.png)
+![Architecture](architecture1.png)
 ## 📜 License
 
 This project was developed for academic and learning purposes as part of a Big Data Engineering implementation project.
