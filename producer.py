@@ -8,9 +8,9 @@ import boto3
 from kafka import KafkaProducer
 
 # Configuration
-BOOTSTRAP_SERVERS = ['localhost:9092']
-BUCKET = 'etl-pipeline-mayur-team11'
-REGION = 'us-east-1'
+BOOTSTRAP_SERVERS = ['localhost:XXXX']
+BUCKET = 'MAYUR S3'
+REGION = 'REGION'
 BATCH_SIZE = 100
 
 # Connect to S3
