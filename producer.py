@@ -1,7 +1,6 @@
-# ============================================================
+
 # Producer — Reads 3 JSON files from S3, sends to Kafka topics
-# Team 11 | Real-Time Railway Pipeline
-# ============================================================
+
 
 import json
 import boto3
