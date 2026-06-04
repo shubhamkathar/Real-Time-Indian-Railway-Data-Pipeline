@@ -157,11 +157,17 @@ railway-pipeline/
 
 ## 📊 Analytics Generated
 
-* Zone-wise Railway Analysis
-* Busiest Railway Stations
-* Train Type Distribution
-* State-wise Railway Coverage
-* AC vs Sleeper Class Analysis
+* Gold Base View – Creates analytics-ready railway data with derived business metrics.
+* Zone Performance – Measures zone-wise delays and punctuality.
+* Busiest Source Stations – Finds stations with the highest train departures.
+* Train Type Distribution – Analyzes train category proportions.
+* State Performance – Compares railway performance across states.
+* Cancellation Trend – Tracks cancellation rates over time.
+* Speed Zone Distribution – Classifies train speeds by railway zone.
+* Expensive Routes – Identifies premium-priced railway routes.
+* Electrification Impact – Evaluates performance of electrified routes.
+* Departure Delay Analysis – Studies delay patterns by departure time.
+* Journey Pricing Analysis – Compares ticket prices across journey distances.
 
 ---
 
@@ -199,6 +205,7 @@ railway-pipeline/
 | Mayur |
 | Riyas |
 | Dhiraj |
+| Harshvardhan |
 
 ---
 
