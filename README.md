@@ -42,7 +42,7 @@ This project demonstrates a complete cloud-based data engineering workflow for p
 * Implement a scalable cloud-based architecture.
 
 ---
-![Architecture](architecture.png)
+
 ## 🏗️ Architecture
 
 ```text
@@ -207,7 +207,8 @@ railway-pipeline/
 | Harshvardhan |
 
 ---
-
+---
+![Architecture](architecture.png)
 ## 📜 License
 
 This project was developed for academic and learning purposes as part of a Big Data Engineering implementation project.
