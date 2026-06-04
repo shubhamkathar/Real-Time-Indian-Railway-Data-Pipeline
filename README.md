@@ -1,5 +1,6 @@
 
 # 🚂 Real-Time Indian Railway Data Pipeline
+# TEAM 11
 
 ![AWS](https://img.shields.io/badge/AWS-Cloud-orange)
 ![Kafka](https://img.shields.io/badge/Apache-Kafka-orange)
@@ -80,6 +81,48 @@ Apache Airflow
 
 ---
 
+## 🔄 Pipeline Workflow
+
+1. **Raw Data** — 3 JSON files uploaded to Mayur's S3 bucket
+2. **Producer** — reads files from S3, sends to 3 Kafka topics in batches of 100
+3. **Kafka** — buffers messages across 3 topics
+4. **Consumer** — reads all 3 topics, joins using Pandas, cleans with PySpark
+5. **PySpark ETL** — removes nulls, duplicates, standardizes data
+6. **S3 Storage** — saves 4,16,002 clean records as Parquet
+7. **Athena** — creates 13 SQL views for analysis
+8. **Power BI** — connects via ODBC, displays dashboard
+9. **Airflow** — automates entire pipeline on schedule
+
+---
+
+## 📁 Project Structure
+
+```
+railway-pipeline/
+│
+├── producer/
+│   └── producer.py          # Reads JSON from S3, sends to Kafka
+│
+├── consumer/
+│   └── consumer.py          # Reads Kafka, joins, cleans with PySpark, saves to S3
+│
+├── airflow/
+│   └── dags/
+│       └── railway_pipeline.py   # Airflow DAG for automation
+│
+├── athena/
+│   └── queries.sql          # All Athena SQL queries and views
+│
+├── docs/
+│   └── pipeline_flow.png    # Architecture diagram
+│
+├── requirements.txt         # Python dependencies
+├── .gitignore              # Ignore sensitive files
+└── README.md               # Project documentation
+```
+
+---
+
 ## 🛠️ Technology Stack
 
 | Layer               | Technology             |
@@ -148,13 +191,16 @@ Apache Airflow
 
 ---
 
-## 👨‍💻 Team 11
+## Team 11 | CDAC Project
 
-*SHUBHAM KATHAR
-*MAYUR 
-*RIYA
-*HARSHVARDHAN
-*DHIRAJ
+| Team Member |
+|---|
+| Shubham |
+| Mayur |
+| Riyas |
+| Dhiraj |
+
+---
 
 ## 📜 License
 
