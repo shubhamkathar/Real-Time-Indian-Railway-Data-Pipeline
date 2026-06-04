@@ -1,6 +1,5 @@
 
 # 🚂 Real-Time Indian Railway Data Pipeline
-# TEAM 11
 
 ![AWS](https://img.shields.io/badge/AWS-Cloud-orange)
 ![Kafka](https://img.shields.io/badge/Apache-Kafka-orange)
