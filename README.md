@@ -24,7 +24,7 @@ This project demonstrates a complete cloud-based data engineering workflow for p
 | Clean Records  | 4,16,002 |
 | JSON Files     | 3        |
 | Kafka Topics   | 3        |
-| Athena Views   | 5        |
+| Athena Views   | 11       |
 | Final Columns  | 23       |
 | Storage Format | Parquet  |
 
@@ -132,6 +132,7 @@ Apache Airflow
 | Athena Views Created    | 5        |
 | Output Format           | Parquet  |
 | Deployment Platform     | AWS      |
+| PowerBI                 | Report   |
 
 ---
 
