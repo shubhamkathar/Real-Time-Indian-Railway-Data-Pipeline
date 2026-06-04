@@ -1,7 +1,6 @@
-# ============================================================
+
 # Consumer — Reads from Kafka, joins 3 datasets, cleans with PySpark
-# Team 11 | Real-Time Railway Pipeline
-# ============================================================
+
 
 import json
 import pandas as pd
