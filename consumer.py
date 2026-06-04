@@ -10,9 +10,9 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, when
 
 # Configuration
-BOOTSTRAP_SERVERS = ['localhost:9092']
-BUCKET = 'etl-pipeline-mayur-team11'
-REGION = 'us-east-1'
+BOOTSTRAP_SERVERS = ['localhost:XXXX']
+BUCKET = 'MAYUR S3'
+REGION = 'REGION'
 
 def consume_topic(topic, timeout=30000):
     """
