@@ -1,20 +1,24 @@
 ## ⚙️ Setup Instructions
 
-### Prerequisites
-- AWS Account with EC2, S3, Athena access
-- Ubuntu EC2 instance (c7i.flex.large recommended)
+# =========================
+# PREREQUISITES
+# =========================
+- AWS EC2, S3, Athena access
+- Ubuntu EC2 (c7i.flex.large recommended)
 - Python 3.x
 - Java 11
 
-### Step 1 — Clone Repository
-```bash
+
+# =========================
+# STEP 1: CLONE REPO
+# =========================
 git clone https://github.com/YOUR_USERNAME/railway-pipeline.git
 cd railway-pipeline
-```
 
-### Step 2 — EC2 Setup
-```bash
-# Update machine
+
+# =========================
+# STEP 2: EC2 SETUP
+# =========================
 sudo apt update && sudo apt upgrade -y
 
 # Install Java
@@ -24,6 +28,7 @@ sudo apt install -y openjdk-11-jdk
 wget https://archive.apache.org/dist/kafka/3.7.0/kafka_2.13-3.7.0.tgz
 tar -xzf kafka_2.13-3.7.0.tgz
 sudo mv kafka_2.13-3.7.0 /opt/kafka
+
 echo 'export KAFKA_HOME=/opt/kafka' >> ~/.bashrc
 echo 'export PATH=$PATH:$KAFKA_HOME/bin' >> ~/.bashrc
 
@@ -31,74 +36,97 @@ echo 'export PATH=$PATH:$KAFKA_HOME/bin' >> ~/.bashrc
 wget https://archive.apache.org/dist/spark/spark-3.5.0/spark-3.5.0-bin-hadoop3.tgz
 tar -xzf spark-3.5.0-bin-hadoop3.tgz
 sudo mv spark-3.5.0-bin-hadoop3 /opt/spark
+
 echo 'export SPARK_HOME=/opt/spark' >> ~/.bashrc
 echo 'export PYSPARK_PYTHON=python3' >> ~/.bashrc
 echo 'export PYTHONPATH=/opt/spark/python:/opt/spark/python/lib/py4j-0.10.9.7-src.zip' >> ~/.bashrc
+
 source ~/.bashrc
 
-# Install Python libraries
+# Install Python dependencies
 pip3 install -r requirements.txt --break-system-packages
 
 # Install AWS CLI
 sudo apt install -y awscli
-```
 
-### Step 3 — Configure AWS Credentials
-```bash
+
+# =========================
+# STEP 3: AWS CONFIGURATION
+# =========================
 export AWS_ACCESS_KEY_ID=<YOUR_ACCESS_KEY>
 export AWS_SECRET_ACCESS_KEY=<YOUR_SECRET_KEY>
 export AWS_DEFAULT_REGION=us-east-1
-```
 
-### Step 4 — Start Kafka
-```bash
-# Start Zookeeper
-$KAFKA_HOME/bin/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties &
+
+# =========================
+# STEP 4: START KAFKA
+# =========================
+$KAFKA_HOME/bin/zookeeper-server-start.sh \
+$KAFKA_HOME/config/zookeeper.properties &
+
 sleep 10
 
-# Start Kafka
-$KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties &
+$KAFKA_HOME/bin/kafka-server-start.sh \
+$KAFKA_HOME/config/server.properties &
+
 sleep 10
 
-# Verify
-jps  # Should show QuorumPeerMain + Kafka
-```
+# Verify Kafka is running
+jps
+# Expected:
+# QuorumPeerMain
+# Kafka
 
-### Step 5 — Create Kafka Topics
-```bash
-$KAFKA_HOME/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic trains_topic
-$KAFKA_HOME/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic stations_topic
-$KAFKA_HOME/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic schedules_topic
-```
 
-### Step 6 — Run Pipeline
-```bash
-# Run Producer
+# =========================
+# STEP 5: CREATE TOPICS
+# =========================
+$KAFKA_HOME/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 \
+--replication-factor 1 --partitions 1 --topic trains_topic
+
+$KAFKA_HOME/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 \
+--replication-factor 1 --partitions 1 --topic stations_topic
+
+$KAFKA_HOME/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 \
+--replication-factor 1 --partitions 1 --topic schedules_topic
+
+
+# =========================
+# STEP 6: RUN PIPELINE
+# =========================
+
+# Start Producer (reads S3 → Kafka)
 python3 producer/producer.py
 
-# Run Consumer
+# Start Consumer (Kafka → Spark → S3)
 python3 consumer/consumer.py
-```
 
-### Step 7 — Airflow (Optional)
-```bash
+
+# =========================
+# STEP 7: AIRFLOW (OPTIONAL)
+# =========================
 airflow db migrate
-airflow users create --username admin --password admin123 --role Admin --firstname admin --lastname admin --email admin@example.com
+
+airflow users create \
+--username admin \
+--password admin123 \
+--role Admin \
+--firstname admin \
+--lastname admin \
+--email admin@example.com
+
 airflow standalone &
-```
 
----
 
-## 🔄 Pipeline Workflow
-
-1. **Raw Data** — 3 JSON files uploaded to Mayur's S3 bucket
-2. **Producer** — reads files from S3, sends to 3 Kafka topics in batches of 100
-3. **Kafka** — buffers messages across 3 topics
-4. **Consumer** — reads all 3 topics, joins using Pandas, cleans with PySpark
-5. **PySpark ETL** — removes nulls, duplicates, standardizes data
-6. **S3 Storage** — saves 4,16,002 clean records as Parquet
-7. **Athena** — creates 13 SQL views for analysis
-8. **Power BI** — connects via ODBC, displays dashboard
-9. **Airflow** — automates entire pipeline on schedule
-
----
+# =========================
+# PIPELINE WORKFLOW (SUMMARY)
+# =========================
+# 1. Raw JSON data stored in AWS S3
+# 2. Kafka Producer streams data from S3 → Kafka topics
+# 3. Kafka buffers streaming data
+# 4. PySpark Consumer reads & joins data
+# 5. Data cleaning + transformation in Spark
+# 6. Clean data stored in AWS S3 (Parquet format)
+# 7. AWS Athena runs SQL analytics on S3 data
+# 8. Power BI connects via Athena for dashboards
+# 9. Airflow automates full pipeline
