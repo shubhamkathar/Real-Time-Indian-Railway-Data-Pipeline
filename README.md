@@ -1,5 +1,5 @@
 
-# 🚂 Real-Time Indian Railway Data Pipeline
+# Indian Railway Data Pipeline
 
 ![AWS](https://img.shields.io/badge/AWS-Cloud-orange)
 ![Kafka](https://img.shields.io/badge/Apache-Kafka-orange)
